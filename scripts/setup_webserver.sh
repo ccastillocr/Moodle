@@ -66,7 +66,9 @@ check_fileServerType_param $fileServerType
   fi
 
   # install the base stack
-  sudo apt-get -y install varnish php7.2 php7.2-cli php7.2-curl php7.2-zip php7.2-pear php7.2-mbstring php7.2-dev mcrypt
+  sudo add-apt-repository ppa:ondrej/php -y
+  sudo apt-get -y update
+  sudo apt-get -y install varnish php7.2 php7.2-cli php7.2-curl php7.2-zip php-pear php7.2-mbstring php7.2-dev mcrypt
 
   if [ "$webServerType" = "nginx" -o "$httpsTermination" = "VMSS" ]; then
     sudo apt-get -y install nginx
