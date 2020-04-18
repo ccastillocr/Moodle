@@ -170,7 +170,10 @@ set -ex
     
     # install pre-requisites
     sudo apt-get install -y --fix-missing python-software-properties unzip
-
+    
+    sudo add-apt-repository ppa:ondrej/php -y
+    sudo apt-get -y update
+  
     # install the entire stack
     sudo apt-get -y  --force-yes install nginx php7.2-fpm varnish >> /tmp/apt5a.log
     sudo apt-get -y  --force-yes install php7.2 php7.2-cli php7.2-curl php7.2-zip >> /tmp/apt5b.log
@@ -178,7 +181,7 @@ set -ex
     # Moodle requirements
     sudo apt-get -y update > /dev/null
     sudo apt-get install -y --force-yes graphviz aspell php7.2-common php7.2-soap php7.2-json php7.2-redis > /tmp/apt6.log
-    sudo apt-get install -y --force-yes php7.2-bcmath php7.2-gd php7.2-xmlrpc php7.2-intl php7.2-xml php7.2-bz2 php7.2-pear php7.2-mbstring php7.2-dev mcrypt >> /tmp/apt6.log
+    sudo apt-get install -y --force-yes php7.2-bcmath php7.2-gd php7.2-xmlrpc php7.2-intl php7.2-xml php7.2-bz2 php-pear php7.2-mbstring php7.2-dev mcrypt >> /tmp/apt6.log
     PhpVer=$(get_php_version)
     if [ $dbServerType = "mysql" ]; then
         sudo apt-get install -y --force-yes php7.2-mysql
