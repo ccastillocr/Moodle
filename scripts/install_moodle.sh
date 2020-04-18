@@ -186,7 +186,7 @@ set -ex
         sudo apt-get install -y libapache2-mod-php  # Need this because install_php_mssql_driver tries to update apache2-mod-php settings always (which will fail without this)
         install_php_mssql_driver
     else
-        sudo apt-get install -y --force-yes php-pgsql
+        sudo apt-get install -y --force-yes php7.2-pgsql
     fi
 
     # Set up initial moodle dirs
