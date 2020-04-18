@@ -172,16 +172,16 @@ set -ex
     sudo apt-get install -y --fix-missing python-software-properties unzip
 
     # install the entire stack
-    sudo apt-get -y  --force-yes install nginx php-fpm varnish >> /tmp/apt5a.log
-    sudo apt-get -y  --force-yes install php php-cli php-curl php-zip >> /tmp/apt5b.log
+    sudo apt-get -y  --force-yes install nginx php7.2-fpm varnish >> /tmp/apt5a.log
+    sudo apt-get -y  --force-yes install php7.2 php7.2-cli php7.2-curl php7.2-zip >> /tmp/apt5b.log
 
     # Moodle requirements
     sudo apt-get -y update > /dev/null
-    sudo apt-get install -y --force-yes graphviz aspell php-common php-soap php-json php-redis > /tmp/apt6.log
-    sudo apt-get install -y --force-yes php-bcmath php-gd php-xmlrpc php-intl php-xml php-bz2 php-pear php-mbstring php-dev mcrypt >> /tmp/apt6.log
+    sudo apt-get install -y --force-yes graphviz aspell php7.2-common php7.2-soap php7.2-json php7.2-redis > /tmp/apt6.log
+    sudo apt-get install -y --force-yes php7.2-bcmath php7.2-gd php7.2-xmlrpc php7.2-intl php7.2-xml php7.2-bz2 php7.2-pear php7.2-mbstring php7.2-dev mcrypt >> /tmp/apt6.log
     PhpVer=$(get_php_version)
     if [ $dbServerType = "mysql" ]; then
-        sudo apt-get install -y --force-yes php-mysql
+        sudo apt-get install -y --force-yes php7.2-mysql
     elif [ $dbServerType = "mssql" ]; then
         sudo apt-get install -y libapache2-mod-php  # Need this because install_php_mssql_driver tries to update apache2-mod-php settings always (which will fail without this)
         install_php_mssql_driver
