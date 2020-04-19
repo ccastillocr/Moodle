@@ -301,6 +301,7 @@ EOF
   fi # if [ "$webServerType" = "nginx" ];
 
   if [ "$webServerType" = "apache" ]; then
+    sudo a2enmod ssl
     # Configure Apache/php
     sed -i "s/Listen 80/Listen 81/" /etc/apache2/ports.conf
     a2enmod rewrite && a2enmod remoteip && a2enmod headers
@@ -317,18 +318,41 @@ EOF
 		AllowOverride All
 		Require all granted
 	</Directory>
-EOF
-    if [ "$httpsTermination" != "None" ]; then
-      cat <<EOF >> /etc/apache2/sites-enabled/${siteFQDN}.conf
+	
     # Redirect unencrypted direct connections to HTTPS
     <IfModule mod_rewrite.c>
       RewriteEngine on
       RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
       RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
     </IFModule>
-EOF
-    fi
-    cat <<EOF >> /etc/apache2/sites-enabled/${siteFQDN}.conf
+    
+    # Log X-Forwarded-For IP address instead of varnish (127.0.0.1)
+    SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" forwarded
+	ErrorLog "|/usr/bin/logger -t moodle -p local1.error"
+    CustomLog "|/usr/bin/logger -t moodle -p local1.notice" combined env=!forwarded
+    CustomLog "|/usr/bin/logger -t moodle -p local1.notice" forwarded env=forwarded
+
+</VirtualHost>
+
+<VirtualHost *:443>
+	ServerName ${siteFQDN}
+
+	ServerAdmin webmaster@localhost
+	DocumentRoot ${htmlRootDir}
+
+	<Directory ${htmlRootDir}>
+		Options FollowSymLinks
+		AllowOverride All
+		Require all granted
+	</Directory>
+	
+ 	SSLEngine on
+        SSLCertificateFile /moodle/certs/mep.cer
+        SSLCertificateKeyFile /moodle/certs/mep.key
+        SSLCertificateChainFile /moodle/certs/mepca.cer
+    
     # Log X-Forwarded-For IP address instead of varnish (127.0.0.1)
     SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
     LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
