@@ -320,11 +320,11 @@ EOF
 	</Directory>
 	
     # Redirect unencrypted direct connections to HTTPS
-    <IfModule mod_rewrite.c>
-      RewriteEngine on
-      RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
-      RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
-    </IFModule>
+    #<IfModule mod_rewrite.c>
+    #  RewriteEngine on
+    #  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    #  RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
+    #</IFModule>
     
     # Log X-Forwarded-For IP address instead of varnish (127.0.0.1)
     SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
