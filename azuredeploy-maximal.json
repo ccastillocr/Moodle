@@ -7,7 +7,7 @@
             "metadata": {
                 "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
             },
-            "defaultValue": "https://raw.githubusercontent.com/Azure/Moodle/master/"
+            "defaultValue": "https://raw.githubusercontent.com/ccastillocr/Moodle/master/"
         },
         "_artifactsLocationSasToken": {
             "type": "securestring",
@@ -34,11 +34,11 @@
                     "_artifactsLocation":           { "value": "[parameters('_artifactsLocation')]" },
                     "_artifactsLocationSasToken":   { "value": "[parameters('_artifactsLocationSasToken')]" },
                     "redisDeploySwitch":            { "value": true },
-                    "azureBackupSwitch":            { "value": true },
+                    "azureBackupSwitch":            { "value": false },
                     "searchType":                   { "value": "elastic" },
                     "sshPublicKey":                 { "value": "[parameters('sshPublicKey')]" },
-                    "mysqlPgresVcores":             { "value": 16 },
-                    "mysqlPgresStgSizeGB":          { "value": 512 },
+                    "mysqlPgresVcores":             { "value": 2 },
+                    "mysqlPgresStgSizeGB":          { "value": 50 },
                     "fileServerType":               { "value": "gluster" },
                     "fileServerDiskSize":           { "value": 512 }
                 },
