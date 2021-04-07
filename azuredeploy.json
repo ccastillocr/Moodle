@@ -398,7 +398,7 @@
             "type": "int"
         },
         "fileServerDiskCount": {
-            "defaultValue": 4,
+            "defaultValue": 2,
             "minValue": 2,
             "maxValue": 8,
             "metadata": {
@@ -407,7 +407,7 @@
             "type": "int"
         },
         "fileServerVmSku": {
-            "defaultValue": "Standard_DS2_v2",
+            "defaultValue": "Standard_B1MS",
             "metadata": {
                 "description": "VM size for the gluster or NFS-HA nodes"
             },
@@ -586,14 +586,14 @@
             "type": "string"
         },
         "elasticVmSku": {
-            "defaultValue": "Standard_DS2_v2",
+            "defaultValue": "Standard_B1MS",
             "metadata": {
                 "description": "VM size for the elastic search nodes"
             },
             "type": "string"
         },
         "tikaVmSku": {
-            "defaultValue": "Standard_DS2_v2",
+            "defaultValue": "Standard_B1MS",
             "metadata": {
                 "description": "VM size for the tika search nodes"
             },
