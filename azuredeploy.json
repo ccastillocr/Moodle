@@ -87,7 +87,7 @@
             "type": "bool"
         },
         "enableAccelNwForOtherVmsSwitch": {
-            "defaultValue": true,
+            "defaultValue": false,
             "metadata": {
                 "description": "Switch to enable Azure Accelerated Networking on all other VMs. Default to true because currently the default controller VM SKU for all other VMS (D2) does support AN. Change this to false if you set the SKU of any other VMs to an ineligibible one (e.g., D1) to avoid deployment failure."
             },
@@ -99,7 +99,7 @@
                 "AppGw",
                 "None"
             ],
-            "defaultValue": "VMSS",
+            "defaultValue": "None",
             "metadata": {
                 "description": "Indicates where https termination occurs. 'VMSS' is for https termination at the VMSS instance VMs (using nginx https proxy). 'AppGw' is for https termination with an Azure Application Gateway. When selecting this, you need to specify all appGw* parameters. 'None' is for testing only with no https. 'None' may not be used with a separately configured https termination layer. If you want to use the 'None' option with your separately configured https termination layer, you'll need to update your Moodle config.php manually for $cfg->wwwroot and $cfg->sslproxy."
             },
@@ -114,19 +114,10 @@
         },
         "moodleVersion": {
             "allowedValues": [
-                "MOODLE_38_STABLE",
-                "MOODLE_35_STABLE",
-                "MOODLE_34_STABLE",
-                "v3.4.3",
-                "v3.4.2",
-                "v3.4.1",
-                "MOODLE_33_STABLE",
-                "MOODLE_32_STABLE",
-                "MOODLE_31_STABLE",
-                "MOODLE_30_STABLE",
-                "MOODLE_29_STABLE"
+                "MOODLE_39_STABLE",
+                "MOODLE_38_STABLE"
             ],
-            "defaultValue": "MOODLE_38_STABLE",
+            "defaultValue": "MOODLE_39_STABLE",
             "metadata": {
                 "description": "The Moodle version you want to install."
             },
@@ -146,7 +137,7 @@
             "type": "string"
         },
         "controllerVmSku": {
-            "defaultValue": "Standard_DS1_v2",
+            "defaultValue": "Standard_B1MS",
             "metadata": {
                 "description": "VM size for the controller VM"
             },
@@ -164,7 +155,7 @@
             "type": "string"
         },
         "autoscaleVmSku": {
-            "defaultValue": "Standard_DS2_v2",
+            "defaultValue": "Standard_B1MS",
             "metadata": {
                 "description": "VM size for autoscaled web VMs"
             },
@@ -185,7 +176,7 @@
             "type": "int"
         },
         "osDiskStorageType": {
-            "defaultValue": "Premium_LRS",
+            "defaultValue": "Standard_LRS",
             "allowedValues": [
                 "Premium_LRS",
                 "Standard_LRS"
@@ -230,7 +221,7 @@
             "type": "int"
         },
         "mysqlPgresStgSizeGB": {
-            "defaultValue": 125,
+            "defaultValue": 50,
             "minValue": 5,
             "maxValue": 1024,
             "metadata": {
@@ -396,7 +387,7 @@
             "type": "int"
         },
         "fileServerVmSku": {
-            "defaultValue": "Standard_DS2_v2",
+            "defaultValue": "Standard_B1MS",
             "metadata": {
                 "description": "VM size for the gluster or NFS-HA nodes"
             },
@@ -570,14 +561,14 @@
             "type": "string"
         },
         "elasticVmSku": {
-            "defaultValue": "Standard_DS2_v2",
+            "defaultValue": "Standard_B1MS",
             "metadata": {
                 "description": "VM size for the elastic search nodes"
             },
             "type": "string"
         },
         "tikaVmSku": {
-            "defaultValue": "Standard_DS2_v2",
+            "defaultValue": "Standard_B1MS",
             "metadata": {
                 "description": "VM size for the tika search nodes"
             },
@@ -1156,7 +1147,7 @@
             "osType": {
                 "offer": "UbuntuServer",
                 "publisher": "Canonical",
-                "sku": "16.04-LTS",
+                "sku": "18.04-LTS",
                 "version": "latest"
             },
             "policyName": "[concat('policy-',variables('resourceprefix'))]",
